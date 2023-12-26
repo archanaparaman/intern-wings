@@ -1,0 +1,75 @@
+import random
+class QuizGame:
+    def __init__(self):
+        self.questions = []
+        self.score = 0
+    def load_questions(self):
+        # Customize your questions and answers
+        self.questions = [
+            {
+                'question': 'What is the capital of France?',
+                'options': ['A. Berlin', 'B. Madrid', 'C. Paris'],
+                'correct_answer': 'C'
+            },
+            {
+                'question': 'Which planet is known as the Red Planet?',
+                'options': ['A. Mars', 'B. Venus', 'C. Jupiter'],
+                'correct_answer': 'A'
+            },
+            {
+                'question': 'What is the largest mammal?',
+                'options': ['A. Elephant', 'B. Blue Whale', 'C. Giraffe'],
+                'correct_answer': 'B'
+            },
+        ]
+    def display_welcome_message(self):
+        print("Welcome to the Quiz Game!")
+        print("Test your knowledge with these questions.")
+    def present_quiz_questions(self):
+        for index, question_data in enumerate(self.questions, 1):
+            print(f"\nQuestion {index}: {question_data['question']}")
+            for option in question_data['options']:
+                print(option)
+            user_answer = input("Your choice: ").upper()
+
+            if user_answer == question_data['correct_answer']:
+                print("Correct! Well done.")
+                self.score += 1
+            else:
+                print(f"Incorrect. The correct answer is {question_data['correct_answer']}.")
+
+    def compute_final_score(self):
+        total_questions = len(self.questions)
+        percentage_score = (self.score / total_questions) * 100
+        return percentage_score
+
+    def display_conclusive_results(self):
+        print("\nQuiz Completed!")
+        print(f"Your final score: {self.score} out of {len(self.questions)}")
+        print(f"Percentage Score: {self.compute_final_score():.2f}%")
+        if self.score == len(self.questions):
+            print("Congratulations! You got all the questions right.")
+        else:
+            print("Feel free to review and try again!")
+
+    def initiate_another_round(self):
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        return play_again == 'yes'
+
+def main():
+    quiz = QuizGame()
+    quiz.load_questions()
+    quiz.display_welcome_message()
+
+    while True:
+        quiz.present_quiz_questions()
+        quiz.display_conclusive_results()
+
+        if not quiz.initiate_another_round():
+            print("Thanks for playing! Goodbye.")
+            break
+        else:
+            quiz.score = 0  # Reset the score for a new round
+
+if __name__ == "__main__":
+    main()
